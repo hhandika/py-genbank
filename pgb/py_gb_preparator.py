@@ -6,8 +6,28 @@ Creation Date: 26 September 2020
 
 License MIT
 """
-import click
 import os
+from typing import Tuple
+
+import click
+
+def get_metadata(dna_type: str) -> str:
+    metadata = '[molecule=DNA] [moltype=genomic DNA]'
+    if dna_type == "mtdna":
+        metadata =  '[organelle=mitochondrion]' + metadata \
+            + '[gene=CYTB] [product=cytochrome b]'
+        return metadata
+    elif dna_type == "nucleus":
+        return metadata
+    else:
+        print(f"\x1b[0;31mError: \x1b[0mInvalid dna type")
+
+def get_input_files(infile: str, outfile: str, dna_type) -> Tuple[str, str, str]:
+    nexus_input = open(infile, 'r')
+    fasta_output = open(outfile, 'a')
+    metadata = get_metadata(dna_type)
+
+    return nexus_input, fasta_output, metadata
 
 def parse_name(seq_name: str) -> str:
     seq_name = seq_name.split("_")
@@ -15,7 +35,7 @@ def parse_name(seq_name: str) -> str:
     voucher = seq_name[2]
     return taxon, voucher
 
-def write_fasta_from_nexus(nexus_input, fasta_output, metadata):
+def write_fasta_from_nexus(nexus_input: str, fasta_output: str, metadata: str) -> None:
     for line in nexus_input:
         seq = str(line)
         data = seq.split()
@@ -31,24 +51,6 @@ def write_fasta_from_nexus(nexus_input, fasta_output, metadata):
 
     fasta_output.close()
 
-def get_metadata(dna_type):
-    metadata = '[molecule=DNA] [moltype=genomic DNA]'
-    if dna_type == "mtdna":
-        metadata =  '[organelle=mitochondrion]' + metadata \
-            + '[gene=CYTB] [product=cytochrome b]'
-        return metadata
-    elif dna_type == "nucleus":
-        return metadata
-    else:
-        print(f"\x1b[0;31mError: \x1b[0mInvalid dna type")
-
-def get_input_files(infile: str, outfile: str, dna_type):
-    nexus_input = open(infile, 'r')
-    fasta_output = open(outfile, 'a')
-    metadata = get_metadata(dna_type)
-
-    return nexus_input, fasta_output, metadata
-
 def write_result(infile, outfile, dna_type):
     outfile = "result/" + outfile
 
@@ -61,7 +63,7 @@ def write_result(infile, outfile, dna_type):
 @click.option('--infile', '-i', help='Add the input file')
 @click.option('--outfile', '-o', default=None, help="Add output file name")
 @click.option('--dna_type', '-dt', default='nucleus', help='Add the input file')
-def main(infile, outfile, dna_type):
+def main(infile: str, outfile: str, dna_type: str) -> None:
     """
     GenBank Submission Preparator
 

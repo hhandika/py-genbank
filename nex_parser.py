@@ -1,3 +1,12 @@
+"""
+Automate sequence preparation for Genbank submission
+
+Author: Heru Handika and Jacob A. Esselstyn
+Creation Date: 26 September 2020
+
+License MIT
+"""
+
 def parse_name(seq_name):
     seq_name = seq_name.split("_")
     taxon = seq_name[0] + ' ' + seq_name[1]

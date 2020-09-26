@@ -37,8 +37,10 @@ def get_metadata(dna_type):
         metadata =  '[organelle=mitochondrion]' + metadata \
             + '[gene=CYTB] [product=cytochrome b]'
         return metadata
-    else:
+    elif dna_type == "nucleus":
         return metadata
+    else:
+        print(f"\x1b[0;31mError: \x1b[0mInvalid dna type")
 
 def get_input_files(infile: str, outfile: str, dna_type):
     nexus_input = open(infile, 'r')
@@ -58,8 +60,8 @@ def write_result(infile, outfile, dna_type):
 @click.command()
 @click.option('--infile', '-i', help='Add the input file')
 @click.option('--outfile', '-o', default=None, help="Add output file name")
-@click.option('-mtdna', is_flag=True, help='Add the input file')
-def main(infile, outfile, mtdna):
+@click.option('--dna_type', '-dt', default='nucleus', help='Add the input file')
+def main(infile, outfile, dna_type):
     """
     GenBank Submission Preparator
 
@@ -71,10 +73,6 @@ def main(infile, outfile, mtdna):
     """
     if outfile is None:
         outfile = infile.replace(".nex", "") + '_GenBankOut.fas'
-    
-    dna_type = 'nucleus'
-    if mtdna:
-        dna_type = 'mtdna'
 
     try: 
         write_result(infile, outfile, dna_type)

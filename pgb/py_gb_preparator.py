@@ -50,7 +50,7 @@ def write_fasta_from_nexus(nexus_input: str, fasta_output: str, metadata: str) -
 
     fasta_output.close()
 
-def write_result(infile, outfile, dna_type):
+def write_result(infile: str, outfile: str, dna_type: str) -> None:
     outfile = "result/" + outfile
 
     nex_in, fast_out, metadata = get_input_files(infile, outfile, dna_type)

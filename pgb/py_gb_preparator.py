@@ -13,9 +13,9 @@ import click
 
 def get_metadata(dna_type: str) -> str:
     metadata = '[molecule=DNA] [moltype=genomic DNA]'
+
     if dna_type == "mtdna":
-        metadata =  '[organelle=mitochondrion]' + metadata \
-            + '[gene=CYTB] [product=cytochrome b]'
+        metadata =  metadata + '[gene=CYTB]'
         return metadata
     elif dna_type == "nucleus":
         return metadata
@@ -73,7 +73,7 @@ def main(infile: str, outfile: str, dna_type: str) -> None:
         outfile (fasta): a fasta formatted output file
     """
     if outfile is None:
-        outfile = infile.replace(".nex", "") + '_GenBankOut.fas'
+        outfile = infile.replace(".nex", "") + '_GenBankOut_2.fas'
 
     try: 
         write_result(infile, outfile, dna_type)

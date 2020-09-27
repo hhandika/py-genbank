@@ -1,5 +1,5 @@
 # py-gene-bank
-Automate sequence preparation for GenBank submission
+Automate fasta file preparation of Sanger sequencing data for GenBank submission 
 
 This script is designed to format fasta input file for GenBank submission. The original script was written by Dr. Jacob A. Esselstyn. I modified it to make it more robust. 
 

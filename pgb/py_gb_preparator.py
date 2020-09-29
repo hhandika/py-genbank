@@ -29,7 +29,7 @@ def get_input_files(infile: str, outfile: str, dna_type) -> Tuple[str, str, str]
 
     return nexus_input, fasta_output, metadata
 
-def parse_name(seq_name: str) -> str:
+def parse_name(seq_name: str) -> Tuple[str, str]:
     seq_name = seq_name.split("_")
     taxon = seq_name[0] + ' ' + seq_name[1]
     voucher = seq_name[2]

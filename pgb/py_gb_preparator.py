@@ -40,9 +40,9 @@ def write_fasta_from_nexus(nexus_input: str, fasta_output: str, metadata: str) -
         seq = str(line)
         data = seq.split()
         if len(data) == 2 and len(data[1]) > 200:
-            taxon = parse_name(data[0])
-            byline = '>' + taxon[1] + ' ' + '[organism=' + taxon[0] + '] ' \
-                + metadata + ' [specimen-voucher=' + taxon[1] + ']' + '\n'
+            taxon, voucher = parse_name(data[0])
+            byline = '>' + voucher + ' ' + '[organism=' + taxon + '] ' \
+                + metadata + ' [specimen-voucher=' + voucher + ']' + '\n'
                 
             fasta_output.write(byline)
             fasta_output.write(data[1])

@@ -1,5 +1,4 @@
 # py-genbank
-Automate fasta file preparation of Sanger sequencing data for GenBank submission 
 
 This is a command line application to generate fasta input files for GenBank BankIt submission. It is designed for Sanger sequencing data. The original script was written by Dr. Jacob A. Esselstyn. I refactored it to make it more robust. 
 
